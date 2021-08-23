@@ -17,3 +17,7 @@ class User < ApplicationRecord
   validates :email, :presence => true
   has_secure_password
 end
+
+def own_photos
+  return Photo.where({ :owner_id => self.id })
+end

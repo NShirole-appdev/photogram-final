@@ -35,13 +35,12 @@
     </li>
     <% else end %>
 <% if @current_user != nil %>
-<li> <a href="/user_sign_out">Sign Out</a>
-    </li>
-    <% else end %>
-    <% if @current_user != nil %>
-<li> <%= @current_user.username %>
-    </li>
-    <% else end %>
+  <li> <a href="/user_sign_out">Sign Out</a></li>
+  <% else end %>
+    
+<% if @current_user != nil %>
+  <li> <a href="/edit_user_profile"> <%= @current_user.username %> </a> </li>
+  <% else end %>
 
 </nav>
 
