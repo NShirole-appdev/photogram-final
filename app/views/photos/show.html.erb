@@ -74,6 +74,33 @@
 
 <hr>
 
+<h2>Comments</h2>
+
+<table>
+  <tr>
+    <th>Commenter</th>
+    <th>Comment</th>
+    <th>Posted</th>
+  </tr>
+
+  <% @the_photo.comments.each do |comment| %>
+  <tr>
+    <td>
+      <%= comment.commenter.username %>
+    </td>
+
+    <td>
+      <%= comment.body %>
+    </td>
+
+    <td>
+      <%= comment.created_at %>
+    </td>
+  </tr>
+  
+  <% end %>
+</table>
+
 
 <div>
   <div>
