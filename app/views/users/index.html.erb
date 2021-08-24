@@ -33,7 +33,7 @@
       <a href="/users/<%= user.username %>">Show details</a>
     </td>
 
-  <% if @current_user != nil %>
+  <% if FollowRequest.where({ :sender_id => @current_user.id }).where({ :recipient_id => user.id }).count ==  0 %>
     <td>
             <form action="/insert_follow_request" method="post">
             <input type="hidden" name="query_recipient_id" value=<%= user.id %>>
@@ -47,8 +47,10 @@
               Follow
             </button>
     </td>
+
     <% else end %>
-  </tr>
-  
+
   <% end %>
+
+    </tr>
 </table>
