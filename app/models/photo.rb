@@ -12,6 +12,9 @@
 #  owner_id       :integer
 #
 class Photo < ApplicationRecord
+
+  mount_uploader :image, ImageUploader
+
   validates(:poster, { :presence => true })
   validates(:image, { :presence => true })
 

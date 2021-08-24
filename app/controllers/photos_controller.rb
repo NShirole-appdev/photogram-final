@@ -25,6 +25,7 @@ class PhotosController < ApplicationController
 
   def create
     the_photo = Photo.new
+    the_photo.image = params.fetch(:image)
     the_photo.caption = params.fetch("query_caption")
     the_photo.comments_count = params.fetch("query_comments_count")
     the_photo.image = params.fetch("query_image")
