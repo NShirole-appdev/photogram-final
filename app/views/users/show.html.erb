@@ -80,3 +80,6 @@
     </li>
   </ul>
 </nav>
+
+
+<h2>Own photos (<%= Photo.where({ :owner_id => @user.id }).count %>) </h2>
