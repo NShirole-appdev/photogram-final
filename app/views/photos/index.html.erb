@@ -29,37 +29,20 @@
 <hr>
 <div>
   <div>
+
 <table border="1">
-      <tr>
-        <th>
-          Image
-        </th>
-
-        <th>
-          Caption
-        </th>
-
-        <th>
-          Owner
-        </th>
-
-        <th>
-          Posted
-        </th>
-
-        <th>
-          Likes
-        </th>
-
-        <th>
-        </th>
-      </tr>
+  <tr>
+    <th>Image</th>
+    <th>Caption</th>
+    <th>Owner</th>
+    <th>Posted</th>
+    <th>Likes</th>
+    <th></th>
+  </tr>
 
       <% @list_of_public_photos.each do |a_photo| %>
       <tr>
-              <td>
-          <img src="<%= a_photo.image %>">
-        </td>
+          <td> <img src="<%= a_photo.image %>"> </td>
 
         <td>
           <%= a_photo.caption %>
