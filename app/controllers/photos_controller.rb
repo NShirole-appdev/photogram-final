@@ -6,9 +6,7 @@ class PhotosController < ApplicationController
       public_users.push(pubuser.id)
      end
 
-    matching_photos = Photo.where({ :owner_id => [public_users]})
-
-    @list_of_public_photos = matching_photos.order({ :created_at => :desc })
+    @matching_photos = Photo.where({ :owner_id => [public_users]}).order({ :created_at => :desc })
 
     render({ :template => "photos/index.html.erb" })
   end
@@ -28,9 +26,9 @@ class PhotosController < ApplicationController
     the_photo.image = params.fetch(:image)
     the_photo.caption = params.fetch("query_caption")
     the_photo.comments_count = params.fetch("query_comments_count")
-    the_photo.image = params.fetch("query_image")
+    #the_photo.image = params.fetch("query_image")
     the_photo.likes_count = params.fetch("query_likes_count")
-    the_photo.owner_id = params.fetch("query_owner_id")
+    the_photo.owner_id = params.fetch("owner_id")
 
     if the_photo.valid?
       the_photo.save
