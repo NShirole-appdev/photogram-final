@@ -1,0 +1,48 @@
+<div>
+  <div>
+    <h1>
+      Discover
+    </h1>
+  </div>
+</div>
+
+
+<table border="1">
+  <tr>
+    <th>Image</th>
+    <th>Caption</th>
+    <th>Owner</th>
+    <th>Posted</th>
+    <th>Likes</th>
+    <th></th>
+  </tr>
+
+<% @discover_photos.each do |a_photo| %>
+      <tr>
+          <td> <img src="<%= a_photo.image_identifier %>" class="img-responsive"> </td>
+
+        <td>
+          <%= a_photo.caption %>
+        </td>
+
+        <td>
+          <%= User.where({ :id => a_photo.owner_id }).first.username %>
+        </td>
+
+        <td>
+          <%= time_ago_in_words(a_photo.created_at) %> ago
+        </td>
+
+
+        <td>
+          <%= a_photo.likes_count %>
+        </td>
+
+        <td>
+          <a href="/photos/<%= a_photo.id %>">
+            Show details
+          </a>
+        </td>
+      </tr>
+      <% end %>
+    </table>
