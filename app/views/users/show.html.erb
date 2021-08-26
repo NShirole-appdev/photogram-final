@@ -35,10 +35,8 @@
 <% else end %>
 <% else end %>
 
-
-
     <dt>Following</dt>
-        <dd>  <%= FollowRequest.where({ :sender_id => @user.id }).where({ :status => "accepted" }).count.to_i %>  </dd>
+        <dd>  <%= FollowRequest.where({ :sender_id => @user.id }).where({ :status => "accepted" }).count %>  </dd>
       
 
 
