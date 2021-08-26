@@ -54,7 +54,7 @@ def liked_photos
   @liked_photo_ids = []
   Like.where({ :fan_id => @user.id }).each do |likes|
   @liked_photo_ids.push(likes.photo_id)
-
+  end
   @liked_photos = Photo.where({ :id => [@liked_photo_ids]}).order({ :created_at => :desc })
 
   render({ :template => "users/liked_photos.html.erb" })
