@@ -19,7 +19,6 @@
 <form action="/insert_photo" method="post" enctype="multipart/form-data">
   <label for="browser_input">Image</label>
   <input id="browser_input" type="file" name="image" >
-  <input id="owner_id" name="owner_id" value="<%= @current_user.id %>">
 
   <label for="browser_caption">Caption</label>
   <textarea id="browser_caption" name="query_caption" placeholder="Enter a caption for the photo..."></textarea>
@@ -46,7 +45,7 @@
 
       <% @matching_photos.each do |a_photo| %>
       <tr>
-          <td> <img src="<%= a_photo.image.identifier %>"> </td>
+          <td> <img src="<%= a_photo.image %>" class="img-responsive"> </td>
 
         <td>
           <%= a_photo.caption %>

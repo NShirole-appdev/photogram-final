@@ -72,6 +72,16 @@
   </div>
 </div>
 
+<dt>Add a fan</dt>
+  <dd>
+
+    <form action="/insert_like" method="post">
+      <input type="hidden" value= <%= @the_photo.id %> name="query_photo_id">
+      <button>Like</button>
+    </form>
+  </dd>
+
+
 <hr>
 
 <h2>Comments</h2>

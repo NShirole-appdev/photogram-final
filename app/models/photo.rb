@@ -16,7 +16,7 @@ class Photo < ApplicationRecord
   mount_uploader :image, ImageUploader
 
   validates(:poster, { :presence => true })
-  #validates(:image, { :presence => true })
+  validates(:image, { :presence => true })
 
   def poster
     return User.where({ :id => self.owner_id }).at(0)
