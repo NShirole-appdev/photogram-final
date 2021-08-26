@@ -47,4 +47,17 @@ end
   render({ :template => "users/discover.html.erb" })
 end
 
+def liked_photos
+  the_username = params.fetch("the_username")
+  @user = User.where({ :username => the_username }).at(0)
+
+  @liked_photo_ids = []
+  Like.where({ :fan_id => @user.id }).each do |likes|
+  @liked_photo_ids.push(likes.photo_id)
+
+  @liked_photos = Photo.where({ :id => [@liked_photo_ids]}).order({ :created_at => :desc })
+
+  render({ :template => "users/liked_photos.html.erb" })
+end
+
 end
