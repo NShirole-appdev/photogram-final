@@ -3,8 +3,10 @@
 <dl>
   <dt>Private</dt>
     <dd><%= @user.private %></dd>
-    <dt>Followers</dt>
+  <dt>Followers</dt>
         <dd>  <%= FollowRequest.where({ :recipient_id => @user.id }).where({ :status => "accepted" }).count.to_i %>  </dd>
+  <dt>Following</dt>
+        <dd>  <%= FollowRequest.where({ :sender_id => @user.id }).count %>  </dd>
 
 <% if @current_user != @user %>
 <div>
@@ -15,8 +17,7 @@
               Follow
             </button>
           </form>
-    </div>
-
+    </div>  
 <% else end %>
 
 
@@ -31,12 +32,10 @@
             </button>
           </form>
     </div>
-
+    <% else end %>
 <% else end %>
-<% else end %>
 
-    <dt>Following</dt>
-        <dd>  <%= FollowRequest.where({ :sender_id => @user.id }).where({ :status => "accepted" }).count %>  </dd>
+    
       
 
 

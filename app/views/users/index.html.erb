@@ -33,24 +33,59 @@
       <a href="/users/<%= user.username %>">Show details</a>
     </td>
 
-  <% if FollowRequest.where({ :sender_id => @current_user.id }).where({ :recipient_id => user.id }).count ==  0 %>
+     <td>
+  <% acceptedfollowreqs = (FollowRequest.where({ :sender_id => @current_user.id }).where({ :recipient_id => user.id }).where({ :status => "accepted" }).count) %>
+  
+  <% if acceptedfollowreqs !=  0  %>you follow them
+  <% else end %>
+
+  <% pendingfollowreqs = (FollowRequest.where({ :sender_id => @current_user.id }).where({ :recipient_id => user.id }).where({ :status => "pending" }).count) %>
+  
+  <% if pendingfollowreqs !=  0  %>Request sent
+  <% else end %>
+
+ <% if pendingfollowreqs !=  0  %>
+            <button>
+              Cancel
+            </button>
+  <% else end %>
+
+    </td>
+
     <td>
-            <form action="/insert_follow_request" method="post">
-            <input type="hidden" name="query_recipient_id" value=<%= user.id %>>
+    <% if FollowRequest.where({ :sender_id => @current_user.id }).where({ :recipient_id => user.id }).where({ :status => "accepted" }).count !=  0 %>
+    
+            <form action="/delete_follow_request/<%= user.id %>" method="post">
+            <input type="hidden" name="query_recipient_id" value=<%= user.id %>> <%= user.id %>
             <input type="hidden" name="query_sender_id" value=<%= @current_user.id %>>
+
+            <button>
+              Unfollow <%= user.username %>
+            </button>
+
+    <% else end %>
+    </td>
+
+ <td>
+  <% if FollowRequest.where({ :sender_id => @current_user.id }).where({ :recipient_id => user.id }).count ==  0 %>
+   
+            <form action="/insert_follow_request" method="post">
+            <input name="query_recipient_id" value=<% user.id %>>
+            
             <% if user.private %>
             <input type="hidden" name="query_status" value= "accepted" >
             <% else %>
             <input type="hidden" name="query_status" value= "pending" >
             <% end %>
             <button>
-              Follow
+              Follow <%= user.username %>
             </button>
     </td>
-
     <% else end %>
 
-  <% end %>
 
-    </tr>
+
+    
+
+  <% end %>
 </table>
