@@ -32,7 +32,7 @@
     <td>
       <a href="/users/<%= user.username %>">Show details</a>
     </td>
-
+<% if @current_user != nil %>
      <td>
   <% acceptedfollowreqs = (FollowRequest.where({ :sender_id => @current_user.id }).where({ :recipient_id => user.id }).where({ :status => "accepted" }).count) %>
   
@@ -85,7 +85,7 @@
 
 
 
-    
+    <% else end %>
 
   <% end %>
 </table>

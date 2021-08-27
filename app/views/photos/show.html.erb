@@ -79,19 +79,17 @@
       <input type="hidden" value= <%= @the_photo.id %> name="query_photo_id">
       <button>Like</button>
     </form>
-  
-<% if 1 == 1%>
-  <dd>
 
-      <a href="/delete_like/4224">
+      </dd>
+
+
+<dd>
+<% if Like.where({ :photo_id => @the_photo.id }).where({ :fan_id => @current_user.id }).count > 0 %>
+      <a href="/delete_like/<%= Like.where({ :photo_id => @the_photo.id }).where({ :fan_id => @current_user.id }).at(0).id %>">
         Unlike
       </a>
-  </dd>
-
-  <% else end%>
-  
-  
-  </dd>
+<% else end %>
+</dd>
 
 
 <hr>
