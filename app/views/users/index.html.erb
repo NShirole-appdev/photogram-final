@@ -32,60 +32,34 @@
     <td>
       <a href="/users/<%= user.username %>">Show details</a>
     </td>
-<% if @current_user != nil %>
-     <td>
-  <% acceptedfollowreqs = (FollowRequest.where({ :sender_id => @current_user.id }).where({ :recipient_id => user.id }).where({ :status => "accepted" }).count) %>
-  
-  <% if acceptedfollowreqs !=  0  %>you follow them
-  <% else end %>
 
-  <% pendingfollowreqs = (FollowRequest.where({ :sender_id => @current_user.id }).where({ :recipient_id => user.id }).where({ :status => "pending" }).count) %>
-  
-  <% if pendingfollowreqs !=  0  %>Request sent
-  <% else end %>
+<td>
+    <%if @current_user != nil %>
+      <%if FollowRequest.where({:recipient_id => user.id, :sender_id => @current_user.id, :status => "accepted"}).present?%>
 
- <% if pendingfollowreqs !=  0  %>
-            <button>
-              Cancel
-            </button>
-  <% else end %>
+       <a href="/delete_follow_request/<%= FollowRequest.where({:recipient_id => user.id}).first.id %>">
+         Unfollow
+       </a>
 
-    </td>
+      <%elsif FollowRequest.where({:recipient_id => user.id, :status => "pending"}).present?%>
 
-    <td>
-    <% if FollowRequest.where({ :sender_id => @current_user.id }).where({ :recipient_id => user.id }).where({ :status => "accepted" }).count !=  0 %>
+        Request sent.
+
+       <a href="/delete_follow_request/<%= FollowRequest.where({:recipient_id => user.id}).first.id %>">
+       Cancel
+       </a> 
+
+      <%elsif FollowRequest.where({:recipient_id => user.id, :status => "rejected"}).present?%>
+      <%else%> 
     
-            <form action="/delete_follow_request/<%= user.id %>" method="post">
-            <input type="hidden" name="query_recipient_id" value=<%= user.id %>> <%= user.id %>
-            <input type="hidden" name="query_sender_id" value=<%= @current_user.id %>>
-
-            <button>
-              Unfollow <%= user.username %>
-            </button>
-
-    <% else end %>
-    </td>
-
- <td>
-  <% if FollowRequest.where({ :sender_id => @current_user.id }).where({ :recipient_id => user.id }).count ==  0 %>
-   
-            <form action="/insert_follow_request" method="post">
-            <input name="query_recipient_id" value=<% user.id %>>
-            
-            <% if user.private %>
-            <input type="hidden" name="query_status" value= "accepted" >
-            <% else %>
-            <input type="hidden" name="query_status" value= "pending" >
-            <% end %>
-            <button>
-              Follow <%= user.username %>
-            </button>
-    </td>
-    <% else end %>
-
-
-
-    <% else end %>
-
+       <form action="/insert_follow_request" method="post">
+         <input type="hidden" name="query_recipient_id" value="<%=user.id%>">
+        <button>
+          Follow
+        </button>
+      <%end%>   
+    <%else%>
+    <%end%>
+</td>
   <% end %>
 </table>

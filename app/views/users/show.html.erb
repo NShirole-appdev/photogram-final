@@ -6,7 +6,7 @@
   <dt>Followers</dt>
         <dd>  <%= FollowRequest.where({ :recipient_id => @user.id }).where({ :status => "accepted" }).count.to_i %>  </dd>
   <dt>Following</dt>
-        <dd>  <%= FollowRequest.where({ :sender_id => @user.id }).count %>  </dd>
+        <dd>  <%= FollowRequest.where({ :sender_id => @user.id, :status => "accepted" }).count %>  </dd>
 
 <% if @current_user != @user %>
 <div>
